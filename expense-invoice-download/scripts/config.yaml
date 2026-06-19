@@ -1,0 +1,65 @@
+# 费用报销发票下载 - 用户配置文件
+# 复制为 config.local.yaml 后修改，不要直接改这个模板
+
+# === 公司信息（用于发票抬头/税号校验）===
+company:
+  name: "亚马逊信息服务（北京）有限公司上海分公司"
+  tax_id: "913100005903918561"
+  # 常见别名（这些也算匹配成功）
+  aliases:
+    - "亚马逊信息服务(北京)有限公司上海分公司"
+
+# === 用户信息 ===
+user:
+  name: "Kalia Zhou"
+  alias: "kaliaz"
+  home_city: "上海"  # 常驻城市，用于出差完整性检查
+  # home_city 关键词（高铁票到达站含这些词 = 本地，不触发"缺酒店"提醒）
+  home_city_keywords: ["上海", "虹桥", "Shanghai"]
+
+# === 文件路径 ===
+paths:
+  # 发票根目录（所有发票平铺存放）
+  invoice_dir: "\\\\WorkDocs\\kaliaz-amazon\\My Documents\\invoice"
+  # 归档子文件夹（报销完成后分类用）
+  archive_folders:
+    网约车: "1-4月打车"
+    酒店: "酒店"
+    话费: "phone bill"
+    火车票: "火车票"
+
+# === 邮箱配置 ===
+email:
+  # 邮箱类型：outlook / gmail / lark / imap
+  provider: "outlook"
+  # 发票来源文件夹
+  source_folder: "费用报销"
+  # 处理完成后移动到
+  archive_folder: "费用报销/已提交"
+
+# === 报销规则 ===
+rules:
+  # 酒店发票必须为专票
+  hotel_require_special_invoice: true
+  # 餐饮金额提醒阈值（单张超过此金额提醒备注宴请）
+  meal_alert_threshold: 300
+  # 报销时效（天）
+  expiry_warn_days: 45
+  expiry_urgent_days: 55
+  # 文件命名格式
+  filename_format: "YYYYMMDD_店名_金额.pdf"
+  # 酒店/高铁日期规则
+  hotel_date_source: "checkin"  # checkin | invoice_date
+  train_date_source: "travel"   # travel | invoice_date
+
+# === 酒店线下预订提醒 ===
+hotel_offline_booking:
+  enabled: true
+  comment_template: "酒店提供 private offer 优惠价，故线下直订"
+
+# === Concur 报销助手 ===
+concur:
+  # 高铁票默认处理方式：train_tab | upload_pdf | ask
+  train_ticket_mode: "ask"
+  # Agent 模式：直接全选根目录拖入
+  agent_mode: true

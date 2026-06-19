@@ -1,0 +1,15 @@
+# 用户本地配置（含个人税号等敏感信息）
+scripts/config.local.yaml
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
